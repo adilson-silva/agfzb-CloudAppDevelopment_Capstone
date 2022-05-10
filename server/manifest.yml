@@ -1,11 +1,11 @@
   applications:
   - name: adsilva-djangoapp
     routes:
-      - route: adsilva.eu-gb.cf.appdomain.cloud
+      - route: adsilva-capstone.eu-gb.cf.appdomain.cloud
     memory: 128M
     buildpack: python_buildpack
   - name: adsilva-djangoapp-nginx
     routes:
-      - route: adsilva.eu-gb.cf.appdomain.cloud/static
+      - route: adsilva-capstone.eu-gb.cf.appdomain.cloud/static
     memory: 128M
     buildpack: staticfile_buildpack
