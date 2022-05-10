@@ -27,7 +27,7 @@ DEBUG = True
 
 APPEND_SLASH = True
 
-ALLOWED_HOSTS = ["localhost", "adsilva.eu-gb.cf.appdomain.cloud"]
+ALLOWED_HOSTS = ["localhost", "adsilva-capstone.eu-gb.cf.appdomain.cloud"]
 
 
 # Application definition
