@@ -35,7 +35,10 @@ def get_request(url, **kwargs):
 def post_request(url, json_payload, **kwargs): 
     try:
         response = requests.post(url, params=kwargs, json=json_payload)
-        return json.loads(response.text)
+        status_code = response.status_code
+        print("With status {} ".format(status_code))
+        json_data = json.loads(response.text)
+        return json_data
     except:
         print("Network exception occurred")
         return "error in sentiment analyze"

@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 # from .models import related models
 # from .restapis import related methods
-from .restapis import get_request, get_dealers_from_cf, get_dealer_reviews_from_cf
+from .restapis import get_request, get_dealers_from_cf, get_dealer_reviews_from_cf,post_request
 
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
@@ -108,18 +108,21 @@ def get_dealer_details(request, dealer_id):
 
 # Create a `add_review` view to submit a review
 def add_review(request, dealer_id):
-    user_exist = False
-    try:
-        User.objects.get(username=username)
-        user_exist = True
-    except:
-        logger.error("Not authenticated")
-
-    if user_exist:
+    if request.user.is_authenticated:
         review = {}
         review["time"] = datetime.utcnow().isoformat()
+        review["name"] = request.user.username
         review["dealership"] = dealer_id
         review["review"] = "This is a great car dealer"
+        review["purchase"] = "true"
+        review["purchase_date"] = datetime.utcnow().isoformat()
+        review["car_make"] = "Audi"
+        review["car_model"] = "A6"
+        review["car_year"] = "2021"
+        json_payload = {"review": review}
 
-
-
+        response = post_request("https://f9727b38.eu-gb.apigw.appdomain.cloud/api/review", json_payload, dealerId=dealer_id)
+        print(response)
+        return HttpResponse(response)
+    else:
+        return HttpResponse("User is not logged")
